@@ -1,0 +1,15 @@
+services:
+    alt-routing:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            SOURCE: "https://github.com/SombrePigeon/alt-routing"
+            VIRTUAL_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
+            LETSENCRYPT_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
+        networks:
+            nginxproxygitdeploy_net-proxy:
+
+networks:
+    nginxproxygitdeploy_net-proxy:
+        external: true
