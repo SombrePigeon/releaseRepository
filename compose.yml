@@ -1,0 +1,23 @@
+services:
+    release-repository:
+        #build the image for others services
+        #don't forget to add dependencies to this service
+        image: release-repository
+        command: ['echo', 'release repository image built'] #placebo
+        build:
+            context: .
+            dockerfile: Containerfile #compatibility :/
+    alt-routing:
+        image: release-repository
+        environment:
+            SOURCE: "/home/echo/dev/nginxProxyGitDeploy/alt-routing-demo/src/html/js/modules/alt-routing"
+            VIRTUAL_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
+            LETSENCRYPT_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
+        depends_on: 
+            - release-repository
+        networks:
+            nginxproxygitdeploy_net-proxy:
+
+networks:
+    nginxproxygitdeploy_net-proxy:
+        external: true
