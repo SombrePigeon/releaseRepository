@@ -3,21 +3,19 @@ services:
         #build the image for others services
         #don't forget to add dependencies to this service
         image: release-repository
-        command: ['echo', 'release repository image built'] #placebo
+        entrypoint: "/bin/bash"
+        command: ['-c', 'echo', 'release repository image built'] #placebo
         build:
             context: .
+            target: git
             dockerfile: Containerfile #compatibility :/
-    alt-routing:
-        image: release-repository
-        environment:
-            SOURCE: "https://github.com/SombrePigeon/alt-routing"
-            VIRTUAL_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
-            LETSENCRYPT_HOST: "alt-routing.releases.sombrepigeon.fr.localhost"
-        depends_on: 
-            - release-repository
-        networks:
-            nginxproxygitdeploy_net-proxy:
 
-networks:
-    nginxproxygitdeploy_net-proxy:
-        external: true
+    release-repository.dev:
+        #build the image for others services
+        #don't forget to add dependencies to this service
+        image: release-repository.dev
+        command: ['echo', 'release repository dev image built'] #placebo
+        build:
+            context: .
+            target: js
+            dockerfile: Containerfile #compatibility :/
