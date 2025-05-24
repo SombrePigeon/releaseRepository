@@ -1,0 +1,21 @@
+services:
+    release-repository:
+        #build the image for others services
+        #don't forget to add dependencies to this service
+        image: release-repository
+        entrypoint: "/bin/bash"
+        command: ['-c', 'echo', 'release repository image built'] #placebo
+        build:
+            context: .
+            target: git
+            dockerfile: Containerfile #compatibility :/
+
+    release-repository.dev:
+        #build the image for others services
+        #don't forget to add dependencies to this service
+        image: release-repository.dev
+        command: ['echo', 'release repository dev image built'] #placebo
+        build:
+            context: .
+            target: js
+            dockerfile: Containerfile #compatibility :/
