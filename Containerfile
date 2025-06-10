@@ -12,6 +12,6 @@ FROM base
 ARG EXT
 ARG ORIGIN=*
 RUN echo "<FilesMatch \"\.${EXT}\$\">" >> /usr/local/apache2/conf/httpd.conf
-RUN echo '    Header set Access-Control-Allow-Origin "${ORIGIN}"' >> /usr/local/apache2/conf/httpd.conf
+RUN echo "    Header set Access-Control-Allow-Origin \"${ORIGIN}\"" >> /usr/local/apache2/conf/httpd.conf
 RUN echo '    Header set Access-Control-Allow-Methods "GET"' >> /usr/local/apache2/conf/httpd.conf
 RUN echo '</FilesMatch>' >> /usr/local/apache2/conf/httpd.conf
