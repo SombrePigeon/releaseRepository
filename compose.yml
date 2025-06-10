@@ -3,7 +3,6 @@ services:
         image: sombrepigeon/releases:js
         build:
             context: .
-            target: git
             args:
                 EXT: js
             dockerfile: Containerfile #compatibility :/
@@ -11,15 +10,13 @@ services:
         image: sombrepigeon/releases:css
         build:
             context: .
-            target: git
             args:
-                EXT: 
+                EXT: css
             dockerfile: Containerfile #compatibility :/
     js-dev:
         image: sombrepigeon/releases:js-dev
         build:
             context: .
-            target: conf
             args:
                 EXT: js
             dockerfile: Containerfile #compatibility :/
@@ -27,9 +24,8 @@ services:
         image: sombrepigeon/releases:css-dev
         build:
             context: .
-            target: conf
             args:
-                EXT: 
+                EXT: css
             dockerfile: Containerfile #compatibility :/
 
 
