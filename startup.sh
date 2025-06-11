@@ -1,7 +1,11 @@
-#!/bin/sh
-${TAGS:=$(git ls-remote --refs --tags ${SOURCE} | cut --delimiter='/' --fields=3 | tr '-' '~' | sort --version-sort)}
+#!/bin/bash
+${TAGS:=$(git ls-remote --refs --tags "${SOURCE}" \
+  | grep -v '\^{}' \
+  | cut -d '/' -f 3 \
+  | tr '-' '~' \
+  | sort -V)}
 cd /usr/local/apache2/htdocs/
-echo $TAGS
+echo "TAGS : $TAGS"
 if [ ! -d ".git" ]; then
     echo "Clonage du dépôt $SOURCE..."
     git clone --no-checkout $SOURCE .
@@ -18,6 +22,7 @@ for TAG in $TAGS; do
 		git worktree add $TAG
 	fi
 done 
+shopt -s nullglob
 for dir in */; do
     # Retirer le slash final pour comparer facilement
     dir=${dir%/}
